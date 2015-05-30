@@ -25,24 +25,24 @@ from random import randint
 
 
 def _get_answer():
-    if inputLetter in lettersList:
-        if inputLetter in wrongLetters:
+    if inputCharacter in lettersList:
+        if inputCharacter in wrongLetters:
             return 0
-        elif inputLetter in answer:
+        elif inputCharacter in answer:
             return 0
         else:
             counter = 0
             for letter in lettersList:
-                if letter == inputLetter:
+                if letter == inputCharacter:
                     answer[lettersList.index(letter, counter)] = letter
                     counter += (lettersList.index(letter)) + 1
                 else:
                     continue
             return 1
     else:
-        if inputLetter in wrongLetters:
+        if inputCharacter in wrongLetters:
             return 0
-        elif inputLetter in answer:
+        elif inputCharacter in answer:
             return 0
         else:
             return -1
@@ -74,10 +74,10 @@ while True:
 
     while tries <= 10:
         try:
-            inputLetter = input("\n--> ").lower()
-            if not inputLetter.isalpha():
+            inputCharacter = input("\n--> ").lower()
+            if not inputCharacter.isalpha():
                 raise ValueError
-            elif len(inputLetter) != 1:
+            elif len(inputCharacter) != 1:
                 raise ValueError
             else:
                 result = _get_answer()
@@ -85,12 +85,11 @@ while True:
                     print("Well done...\t", " / ".join(answer))
                     print("\nWrong letters: ", wrongLetters)
                 elif result == -1:
-                    wrongLetters += inputLetter
+                    wrongLetters += inputCharacter
                     print("Sorry...\t", " / ".join(answer))
                     print("\nWrong letters: ", wrongLetters)
                     tries += 1
                 elif result == 0:
-                    # TODO Must remember to fix
                     print("You've already tried that letter!")
             if answer == lettersList:
                 print("Congratulations!! You win!!")
@@ -98,7 +97,6 @@ while True:
             else:
                 print("You have", 10 - tries, "wrong answers left.")
         except ValueError:
-            # TODO Come up with error message
             print("Please type in a single valid letter!")
     if answer != lettersList:
         print("\nYou've run out of tries!! Better luck next time...")
